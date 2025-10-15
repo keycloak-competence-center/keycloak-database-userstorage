@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>parent</artifactId>
-        <groupId>com.inventage.keycloak.custom</groupId>
+        <groupId>com.inventage.keycloak-database-userstorage</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
@@ -15,17 +15,17 @@
     <dependencies>
         <!-- dependencies to be included in the container image -->
         <dependency>
-            <groupId>com.inventage.keycloak.custom</groupId>
+            <groupId>com.inventage.keycloak-database-userstorage</groupId>
             <artifactId>config</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.inventage.keycloak.custom</groupId>
+            <groupId>com.inventage.keycloak-database-userstorage</groupId>
             <artifactId>extension-no-op-authenticator</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.inventage.keycloak.custom</groupId>
+            <groupId>com.inventage.keycloak-database-userstorage</groupId>
             <artifactId>themes</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -108,7 +108,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeArtifactIds>extension-no-op-authenticator,themes</includeArtifactIds>
+                            <includeArtifactIds>keycloak-database-userstorage,themes</includeArtifactIds>
                             <outputDirectory>${project.build.outputDirectory}/keycloak/providers</outputDirectory>
                         </configuration>
                     </execution>

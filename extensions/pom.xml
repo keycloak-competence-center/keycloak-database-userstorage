@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>parent</artifactId>
-        <groupId>com.inventage.keycloak.custom</groupId>
+        <groupId>com.inventage.keycloak-database-userstorage</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
@@ -18,14 +18,13 @@
     </properties>
 
     <modules>
-        <module>extension-no-op-authenticator</module>
-        <module>extension-no-op-protocol-mapper</module>
+        <module>keycloak-database-userstorage</module>
     </modules>
 
     <dependencies>
         <!-- the server module must be built for copying the jars into -->
         <dependency>
-            <groupId>com.inventage.keycloak.custom</groupId>
+            <groupId>com.inventage.keycloak-database-userstorage</groupId>
             <artifactId>server</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
