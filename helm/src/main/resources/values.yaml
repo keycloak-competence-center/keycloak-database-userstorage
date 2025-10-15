@@ -1,0 +1,105 @@
+keycloakx:
+  # This is an example configuration, for production grade configuration see the Keycloak documentation.
+  # See https://www.keycloak.org/server/configuration
+  # See https://www.keycloak.org/server/all-config
+  command:
+    - "/opt/keycloak/bin/kc-with-setup.sh"
+    - "--verbose"
+    - "start"
+    - "--http-enabled=true"
+    - "--http-port=8080"
+    - "--hostname-strict=false"
+    - "--spi-events-listener-jboss-logging-success-level=info"
+    - "--spi-events-listener-jboss-logging-error-level=warn"
+
+  image:
+    # The custom image repository
+    repository: ${docker.registry}${docker.image.name}
+    # Overrides the Keycloak image tag whose default is the chart appVersion
+    tag: ${project.version}
+
+  http:
+    relativePath: "/"
+
+  extraEnv: |
+    - name: KC_BOOTSTRAP_ADMIN_USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "keycloak.fullname" . }}-bootstrap-admin-creds
+          key: user
+    - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "keycloak.fullname" . }}-bootstrap-admin-creds
+          key: password
+    - name: KC_BOOTSTRAP_ADMIN_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "keycloak.fullname" . }}-bootstrap-admin-client-creds
+          key: client-id
+    - name: KC_BOOTSTRAP_ADMIN_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "keycloak.fullname" . }}-bootstrap-admin-client-creds
+          key: client-secret
+
+    - name: KEYCLOAK_CONFIG_CLI_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "keycloak.fullname" . }}-config-cli-client-creds
+          key: client-id
+    - name: KEYCLOAK_CONFIG_CLI_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: {{ include "keycloak.fullname" . }}-config-cli-client-creds
+          key: client-secret
+
+    - name: KEYCLOAK_CLIENT_ID_REF
+      value: ${KC_BOOTSTRAP_ADMIN_CLIENT_ID}
+    - name: KEYCLOAK_CLIENT_SECRET_REF
+      value: ${KC_BOOTSTRAP_ADMIN_CLIENT_SECRET}
+    - name: KEYCLOAK_GRANT_TYPE
+      value: client_credentials
+
+    - name: JAVA_OPTS_APPEND
+      value: >-
+        -Djava.awt.headless=true
+        -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
+
+  dbchecker:
+    enabled: true
+
+  database:
+    vendor: postgres
+    hostname: postgres-postgresql
+    port: 5432
+    username: keycloak
+    password: keycloak
+    database: keycloak
+
+  secrets:
+    bootstrap-admin-creds:
+      stringData:
+        user: temp-admin
+        password: admin
+    bootstrap-admin-client-creds:
+      stringData:
+        client-id: temp-client-admin
+        client-secret: admin
+    config-cli-client-creds:
+      stringData:
+        client-id: keycloak-config-cli
+        client-secret: keycloak-config-cli
+
+  securityContext:
+    # See https://github.com/keycloak/keycloak/issues/11286
+    # readOnlyRootFilesystem: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+
+  serviceAccount:
+    automountServiceAccountToken: "false"
+    imagePullSecrets:
+      - name: keycloak-custom
