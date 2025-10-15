@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>com.inventage.keycloak-database-userstorage</groupId>
-            <artifactId>extension-no-op-authenticator</artifactId>
+            <artifactId>keycloak-database-userstorage</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
