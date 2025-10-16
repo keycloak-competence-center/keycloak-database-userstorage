@@ -43,10 +43,10 @@ jobs:
         run: mvn -B install -Dbuild.number=${{github.run_number}} -Dbuild.revision=${GITHUB_SHA} --file pom.xml
 
       - name: Run flatten-maven-plugin for extension
-        run: mvn process-resources org.codehaus.mojo:flatten-maven-plugin:1.7.0:flatten -Dflatten.dependency.mode=all -Dflatten.mode=bom -Dee.maven.groupId=org.wildfly --file extensions/keycloak-sms-authenticator/pom.xml
+        run: mvn process-resources org.codehaus.mojo:flatten-maven-plugin:1.7.0:flatten -Dflatten.dependency.mode=all -Dflatten.mode=bom -Dee.maven.groupId=org.wildfly --file extensions/keycloak-database-userstorage/pom.xml
 
       - name: Deploy with Maven
-        run: mvn -B deploy -Dbuild.number=${{github.run_number}} -Dbuild.revision=${GITHUB_SHA} --file extensions/keycloak-sms-authenticator/.flattened-pom.xml
+        run: mvn -B deploy -Dbuild.number=${{github.run_number}} -Dbuild.revision=${GITHUB_SHA} --file extensions/keycloak-database-userstorage/.flattened-pom.xml
         env:
           KCC_CI_USERNAME: ${{secrets.KCC_CI_USERNAME}}
           KCC_CI_PASSWORD: ${{secrets.KCC_CI_PASSWORD}}
