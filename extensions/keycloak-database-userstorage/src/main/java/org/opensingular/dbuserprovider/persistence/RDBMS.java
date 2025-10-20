@@ -7,12 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.opensingular.dbuserprovider.persistence.JdbcDriverClassName.*;
+
 public enum RDBMS {
 
-    POSTGRESQL("PostgreSQL 10+", org.postgresql.Driver.class.getName(), "SELECT 1", new PostgreSQLDialect());
-//    MYSQL("MySQL 5.7+", com.mysql.cj.jdbc.Driver.class.getName(), "SELECT 1", new MySQLDialect()),
-//    ORACLE("Oracle 12+", oracle.jdbc.OracleDriver.class.getName(), "SELECT 1 FROM DUAL", new OracleDialect()),
-//    SQL_SERVER("MS SQL Server 2012+ (jtds)", net.sourceforge.jtds.jdbc.Driver.class.getName(), "SELECT 1", new SQLServerDialect());
+    POSTGRESQL("PostgreSQL 10+", POSTGRESQL_DRIVER_CLASS_NAME, "SELECT 1", new PostgreSQLDialect()),
+    MYSQL("MySQL 5.7+", MYSQL_DRIVER_CLASS_NAME, "SELECT 1", new MySQLDialect()),
+    ORACLE("Oracle 12+", ORACLE_DRIVER_CLASS_NAME, "SELECT 1 FROM DUAL", new OracleDialect()),
+    SQL_SERVER("MS SQL Server 2012+ (jtds)", SQLSERVER_DRIVER_CLASS_NAME, "SELECT 1", new SQLServerDialect());
 
     private final String  desc;
     private final String  driver;
