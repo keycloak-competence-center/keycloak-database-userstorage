@@ -1,4 +1,22 @@
-# Keycloak-Custom
+# Keycloak Database Userstorage
+
+This project provides the [Keycloak Database Userstorage](./extensions/keycloak-database-userstorage) extension as its only deliverable.
+
+- [Build Pipeline](https://github.com/keycloak-competence-center/keycloak-database-userstorage/actions/workflows/build-pipeline.yml)
+- [Release Pipeline](https://github.com/keycloak-competence-center/keycloak-database-userstorage/actions/workflows/release-pipeline.yml)
+- Artifacts Release Repository
+- Artifacts Release Candidate Repository
+
+The following submodules have the artifact deployment to the maven repository skipped in their pom.xml:
+
+- config
+- container
+- docker-compose
+- helm
+- server
+- themes
+
+The above submodules are only used during the development of the extension.
 
 ## Project Template
 
