@@ -188,17 +188,14 @@
           "rdbms": [
             "PostgreSQL 10+"
           ],
-          "findPasswordHash": [
-            "select hash_pwd from users where \"username\" = ? "
-          ],
           "count": [
-            "select count(*) from users"
+            "select count(*) from account"
           ],
           "cachePolicy": [
             "DEFAULT"
           ],
           "url": [
-            "jdbc:postgresql://localhost:5432/keycloak-database-userstorage"
+            "$(env:USERSTORAGE_DB_URL:-jdbc:postgresql://localhost:5432/keycloak-database-userstorage)"
           ],
           "enabled": [
             "true"
@@ -207,22 +204,25 @@
             "false"
           ],
           "findBySearchTerm": [
-            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from users where upper(\"username\") like (?)  or upper(\"email\") like (?) or upper(\"fullName\") like (?)"
+            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account where \"username\" like (?)  or \"email\" like (?) or \"fullName\" like (?)"
           ],
           "password": [
             "postgres"
           ],
           "findByUsername": [
-            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from users where \"username\" = ? "
+            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account, where \"username\" = ? "
           ],
           "findById": [
-            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from users where \"id\" = ? "
+            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account where \"id\" = ? "
           ],
           "listAll": [
-            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from users"
+            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account"
           ],
           "findByEmail": [
-            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from users where \"email\" = ? "
+            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account where \"email\" = ? "
+          ],
+          "findPasswordHash": [
+            "select hash_pwd from userstorage.account where \"username\" = ? "
           ],
           "user": [
             "postgres"
@@ -233,5 +233,8 @@
         }
       }
     ]
+  },
+  "attributes": {
+    "configVersion": "2"
   }
 }

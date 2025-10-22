@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.utility.MountableFile;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,13 +47,17 @@ public class SystemUnderTest {
     }
 
     private PostgreSQLContainer startPostgres(Network network) {
+        final MountableFile setup = MountableFile.forClasspathResource("/postgres/setup.sql");
+
         postgres = new PostgreSQLContainer<>(DOCKER_IMAGE_NAME_POSTGRES)
                 .withLogConsumer(new Slf4jLogConsumer(LOGGER))
                 .withNetwork(network)
                 .withNetworkAliases(NETWORK_ALIAS_POSTGRES)
                 .withDatabaseName(DATABASE_NAME_POSTGRES)
                 .withUsername("postgres")
-                .withPassword("postgres");
+                .withPassword("postgres")
+                .withCopyFileToContainer(setup, "/docker-entrypoint-initdb.d/setup.sql")
+        ;
         try {
             postgres.start();
             return postgres;
@@ -92,6 +97,7 @@ public class SystemUnderTest {
         envs.put("KC_DB_USERNAME", postgres.getUsername());
         envs.put("KC_DB_PASSWORD", postgres.getPassword());
         envs.put("KC_DB_URL", String.format("jdbc:postgresql://%s:5432/%s?loggerLevel=OFF", NETWORK_ALIAS_POSTGRES, DATABASE_NAME_POSTGRES));
+        envs.put("USERSTORAGE_DB_URL", String.format("jdbc:postgresql://%s:5432/%s?loggerLevel=OFF", NETWORK_ALIAS_POSTGRES, DATABASE_NAME_POSTGRES));
         envs.put("KC_LOG_LEVEL", "info");
         return envs;
     }

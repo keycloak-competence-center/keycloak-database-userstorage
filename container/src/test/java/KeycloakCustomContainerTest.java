@@ -33,7 +33,7 @@ class KeycloakCustomContainerTest {
     }
 
     @Test
-    void test_import_realm() {
+    void test_for_postgresql_realm() {
         Keycloak keycloakAdminClient = KeycloakBuilder.builder()
                 .serverUrl(sut().keycloak.getAuthServerUrl())
                 .realm("master")
@@ -42,7 +42,7 @@ class KeycloakCustomContainerTest {
                 .password(sut().keycloak.getAdminPassword())
                 .build();
 
-        Optional<RealmRepresentation> example1 = keycloakAdminClient.realms().findAll().stream().filter(realmRepresentation -> realmRepresentation.getRealm().equals("example1")).findFirst();
-        Assertions.assertTrue(example1.isPresent(), "Realm `example1` should exist. Realm import via keycloak-config-cli failed.");
+        Optional<RealmRepresentation> example1 = keycloakAdminClient.realms().findAll().stream().filter(realmRepresentation -> realmRepresentation.getRealm().equals("postgresql")).findFirst();
+        Assertions.assertTrue(example1.isPresent(), "Realm `postgresql` should exist. Realm import via keycloak-config-cli failed.");
     }
 }
