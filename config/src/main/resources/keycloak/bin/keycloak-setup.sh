@@ -40,8 +40,8 @@ runKeycloakConfigCli() {
     --import.managed.client-scope-mapping=no-delete \
     --import.files.locations="${BASEDIR}"/../setup/*.json \
     --logging.level.root=info \
-    --logging.level.keycloak-config-cli=info \
-    --logging.level.realm-config=info
+    --logging.level.keycloak-config-cli=debug \
+    --logging.level.realm-config=debug
 }
 
 runKeycloakCli() {
