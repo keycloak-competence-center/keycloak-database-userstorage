@@ -3,6 +3,7 @@ package org.opensingular.dbuserprovider.util;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.pagination.LimitHandler;
 import org.hibernate.query.spi.Limit;
+import org.hibernate.query.spi.QueryOptions;
 import org.opensingular.dbuserprovider.DBUserStorageException;
 import org.opensingular.dbuserprovider.persistence.RDBMS;
 
@@ -40,7 +41,7 @@ public class PagingUtil {
         StringBuilder processedSQL;
         try {
             LimitHandler limitHandler = dialect.getLimitHandler();
-            processedSQL = new StringBuilder(limitHandler.processSql(escapedSQL, rowSelection));
+            processedSQL = new StringBuilder(limitHandler.processSql(escapedSQL, rowSelection, QueryOptions.READ_ONLY));
             int                                 col       = 1;
             PreparedStatementParameterCollector collector = new PreparedStatementParameterCollector();
             col += limitHandler.bindLimitParametersAtStartOfQuery(rowSelection, collector, col);
