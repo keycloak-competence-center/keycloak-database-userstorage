@@ -176,6 +176,17 @@
     }
   ],
   "components": {
+    "org.keycloak.userprofile.UserProfileProvider": [
+      {
+        "providerId": "declarative-user-profile",
+        "subComponents": {},
+        "config": {
+          "kc.user.profile.config": [
+            "{\"attributes\":[{\"name\":\"username\",\"displayName\":\"${username}\",\"validations\":{\"length\":{\"min\":3,\"max\":255},\"username-prohibited-characters\":{},\"up-username-not-idn-homograph\":{}},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"email\",\"displayName\":\"${email}\",\"validations\":{\"email\":{},\"length\":{\"max\":255}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"firstName\",\"displayName\":\"${firstName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false},{\"name\":\"lastName\",\"displayName\":\"${lastName}\",\"validations\":{\"length\":{\"max\":255},\"person-name-prohibited-characters\":{}},\"required\":{\"roles\":[\"user\"]},\"permissions\":{\"view\":[\"admin\",\"user\"],\"edit\":[\"admin\",\"user\"]},\"multivalued\":false}],\"groups\":[{\"name\":\"user-metadata\",\"displayHeader\":\"User metadata\",\"displayDescription\":\"Attributes, which refer to user metadata\"}],\"unmanagedAttributePolicy\":\"ADMIN_VIEW\"}"
+          ]
+        }
+      }
+    ],
     "org.keycloak.storage.UserStorageProvider": [
       {
         "name": "postgresql",
@@ -210,7 +221,7 @@
             "postgres"
           ],
           "findByUsername": [
-            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account, where \"username\" = ? "
+            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account where \"username\" = ? "
           ],
           "findById": [
             "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account where \"id\" = ? "
@@ -235,6 +246,6 @@
     ]
   },
   "attributes": {
-    "configVersion": "2"
+    "configVersion": "3"
   }
 }
