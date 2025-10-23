@@ -1,0 +1,12 @@
+services:
+  oracle:
+    image: inventage-base.artifacts.inventage.com/inventage/base/oracle/database:19c
+    environment:
+      SCHEMAS: USERSTORAGE
+    networks:
+      - oracle
+    ports:
+      - "11521:1521"
+
+networks:
+  oracle:

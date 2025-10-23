@@ -19,6 +19,7 @@
 
     <modules>
         <module>keycloak-database-userstorage</module>
+        <module>externals</module>
     </modules>
 
     <dependencies>
