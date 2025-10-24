@@ -41,7 +41,6 @@
         <testcontainers-oracle.version>2.0.1</testcontainers-oracle.version>
         <testcontainers.version>1.20.6</testcontainers.version>
         <junit-jupiter.version>5.12.1</junit-jupiter.version>
-        <failsafe-plugin.version>3.2.5</failsafe-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -184,7 +183,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>${failsafe-plugin.version}</version>
+                    <version>3.5.3</version>
                     <configuration>
                         <systemPropertyVariables>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
