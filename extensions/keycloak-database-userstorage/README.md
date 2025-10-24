@@ -24,33 +24,44 @@ Configuration
 
 The configuration requires also 7 SQL queries to be specified for the following use cases:
 
-- User count SQL query
-- List All Users SQL query
-- Find user by id SQL query
-- Find user by username SQL query
-- Find user by email SQL query
-- Find user by search term SQL query
-- Find password hash (blowfish or hash digest hex) SQL query
+- User count SQL query : must return a number
+- List All Users SQL query : must return at least the required managed attributes
+- Find user by id SQL query : must return at least the required managed attributes
+- Find user by username SQL query : must return at least the required managed attributes
+- Find user by email SQL query : must return at least the required managed attributes
+- Find user by search term SQL query : must return at least the required managed attributes
+- Find password hash (blowfish or hash digest hex) SQL query : must return the hashed password
 
+The managed attributes for a Keycloak user are:
 
-
-- `id`
-- `username`
+- `id` (required)
+- `username` (required)
 - `email`
 - `firstName`
 - `lastName`
 
-If the `Unmanaged Attributes` option of the realm is enabled, the non-standard attributes are also shown in the Admin Console in the `Attributes` tab of the user detail page.
+The names of the managed attributes are case-sensitive!
+
+Beside the above managed attributes it is also possible to add additional attributes by returning them in the above SQL queries. If the `Unmanaged Attributes` option of the realm is enabled, the additional attributes are also shown in the Admin Console in the `Attributes` tab of the user detail page.
 
 PostgreSQL
 ---
 
-Example [setup.sql](../../container/src/test/resources/postgres/setup.sql) for a database setup to be used as the user storage with Postgres.
+The [setup.sql](../../container/src/test/resources/postgres/setup.sql) contains an example setup of the database schema to be used as the user storage for Postgres.
+
+For a script based configuration of Keycloak the [keycloak-config-cli] tool can be used. The [realm-postgresql.json](../../config/src/main/resources/keycloak/setup/realm-postgresql.json) file contains such an example configuration for the `Keycloak Database Userstorage` extension.
+
+The [Keycloak Test Application configured for the postgresql realm](https://www.keycloak.org/app?url=http://localhost:8080&realm=postgresql&client=myclient) can be used to test the login.
 
 Oracle
 ---
 
-Example [setup.sql](../../container/src/test/resources/oracle/setup.sql) for a database setup to be used as the user storage with Oracle.
+The [setup.sql](../../container/src/test/resources/oracle/setup.sql) contains an example setup of the database schema to be used as the user storage for Oracle.
+
+For a script based configuration of Keycloak the [keycloak-config-cli] tool can be used. The [realm-oracle.json](../../config/src/main/resources/keycloak/setup/unused/realm-oracle.json) file contains such an example configuration for the `Keycloak Database Userstorage` extension.
+
+
+The [Keycloak Test Application configured for the oracle realm](https://www.keycloak.org/app?url=http://localhost:8080&realm=oracle&client=myclient) can be used to test the login.
 
 
 [build-pipeline]: https://github.com/keycloak-competence-center/keycloak-database-userstorage/actions/workflows/build-pipeline.yml
@@ -61,3 +72,4 @@ Example [setup.sql](../../container/src/test/resources/oracle/setup.sql) for a d
 [t7tran]: https://github.com/t7tran/singular-keycloak-database-federation
 [singular-keycloak-database-federation]: https://github.com/opensingular/singular-keycloak-database-federation
 [Keycloak User Storage SPI]: https://www.keycloak.org/docs/latest/server_development/index.html#_user-storage-spi
+[keycloak-config-cli]: 
