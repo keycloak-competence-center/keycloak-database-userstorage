@@ -51,7 +51,7 @@ The [setup.sql](../../container/src/test/resources/postgres/setup.sql) contains 
 
 For a script based configuration of Keycloak the [keycloak-config-cli] tool can be used. The [realm-postgresql.json](../../config/src/main/resources/keycloak/setup/realm-postgresql.json) file contains such an example configuration for the `Keycloak Database Userstorage` extension.
 
-The [Keycloak Test Application configured for the postgresql realm](https://www.keycloak.org/app?url=http://localhost:8080&realm=postgresql&client=myclient) can be used to test the login.
+The [Keycloak Test Application configured for the postgresql realm](https://www.keycloak.org/app?url=http://localhost:8080&realm=postgresql&client=myclient) can be used to test the login in a local setup (Keycloak running at http://localhost:8080).
 
 Oracle
 ---
@@ -61,7 +61,7 @@ The [setup.sql](../../container/src/test/resources/oracle/setup.sql) contains an
 For a script based configuration of Keycloak the [keycloak-config-cli] tool can be used. The [realm-oracle.json](../../config/src/main/resources/keycloak/setup/unused/realm-oracle.json) file contains such an example configuration for the `Keycloak Database Userstorage` extension.
 
 
-The [Keycloak Test Application configured for the oracle realm](https://www.keycloak.org/app?url=http://localhost:8080&realm=oracle&client=myclient) can be used to test the login.
+The [Keycloak Test Application configured for the oracle realm](https://www.keycloak.org/app?url=http://localhost:8080&realm=oracle&client=myclient) can be used to test the login in a local setup (Keycloak running at http://localhost:8080).
 
 
 [build-pipeline]: https://github.com/keycloak-competence-center/keycloak-database-userstorage/actions/workflows/build-pipeline.yml
