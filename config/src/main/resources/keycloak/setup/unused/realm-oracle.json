@@ -1,7 +1,7 @@
 {
   "id": "oracle",
   "realm": "oracle",
-  "enabled": false,
+  "enabled": true,
   "registrationAllowed": true,
   "adminEventsEnabled": true,
   "adminEventsDetailsEnabled": true,
@@ -197,7 +197,7 @@
             "Oracle 12+"
           ],
           "url": [
-            "$(env:USERSTORAGE_ORACLE_URL:-jdbc:oracle:thin:@localhost:11521:orcl)"
+            "$(env:USERSTORAGE_ORACLE_URL:-jdbc:oracle:thin:@localhost:1521:orcl)"
           ],
           "user": [
             "USERSTORAGE"

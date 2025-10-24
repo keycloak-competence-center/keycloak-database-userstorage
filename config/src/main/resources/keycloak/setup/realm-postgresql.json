@@ -193,32 +193,29 @@
         "providerId": "singular-db-user-provider",
         "subComponents": {},
         "config": {
-          "hashFunction": [
-            "SHA-1"
-          ],
           "rdbms": [
             "PostgreSQL 10+"
-          ],
-          "count": [
-            "select count(*) from account"
-          ],
-          "cachePolicy": [
-            "DEFAULT"
           ],
           "url": [
             "$(env:USERSTORAGE_DB_URL:-jdbc:postgresql://localhost:5432/keycloak-database-userstorage)"
           ],
-          "enabled": [
-            "true"
-          ],
-          "allowKeycloakDelete": [
-            "false"
-          ],
-          "findBySearchTerm": [
-            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account where \"username\" like (?)  or \"email\" like (?) or \"fullName\" like (?)"
+          "user": [
+            "postgres"
           ],
           "password": [
             "postgres"
+          ],
+          "enabled": [
+            "true"
+          ],
+          "cachePolicy": [
+            "DEFAULT"
+          ],
+          "count": [
+            "select count(*) from userstorage.account"
+          ],
+          "findBySearchTerm": [
+            "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account where \"username\" like (?)  or \"email\" like (?) or \"fullName\" like (?)"
           ],
           "findByUsername": [
             "select \"id\", \"username\", \"email\", \"firstName\", \"lastName\", \"cpf\", \"fullName\" from userstorage.account where \"username\" = ? "
@@ -235,8 +232,11 @@
           "findPasswordHash": [
             "select hash_pwd from userstorage.account where \"username\" = ? "
           ],
-          "user": [
-            "postgres"
+          "hashFunction": [
+            "SHA-1"
+          ],
+          "allowKeycloakDelete": [
+            "false"
           ],
           "allowDatabaseToOverwriteKeycloak": [
             "false"

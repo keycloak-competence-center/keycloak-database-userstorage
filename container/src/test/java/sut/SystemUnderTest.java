@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.oracle.OracleContainer;
 import org.testcontainers.utility.MountableFile;
 
 import java.util.HashMap;
@@ -13,15 +14,22 @@ import java.util.Map;
 public class SystemUnderTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SystemUnderTest.class);
+    // postgres
     private static final String DOCKER_IMAGE_NAME_POSTGRES = "postgres:16-alpine";
     private static final String NETWORK_ALIAS_POSTGRES = "postgres";
     private static final String DATABASE_NAME_POSTGRES = "postgres";
+    // oracle
+    private static final String DOCKER_IMAGE_NAME_ORACLE = "gvenzl/oracle-free:slim-faststart";
+    private static final String NETWORK_ALIAS_ORACLE = "oracle";
+    private static final String DATABASE_NAME_ORACLE = "orcl";
+
     private String runningKeycloakBaseUrl;
 
     private Network network;
 
-    public PostgreSQLContainer postgres;
     public KeycloakCustomContainer keycloak;
+    public PostgreSQLContainer postgres;
+    public OracleContainer oracle;
 
     public SystemUnderTest(String runningKeycloakBaseUrl) {
         this.runningKeycloakBaseUrl = runningKeycloakBaseUrl;
@@ -67,6 +75,29 @@ public class SystemUnderTest {
         }
     }
 
+    private OracleContainer startOracle(Network network) {
+        final MountableFile setup = MountableFile.forClasspathResource("/oracle/setup.sql");
+
+        oracle = new OracleContainer(DOCKER_IMAGE_NAME_ORACLE)
+                .withLogConsumer(new Slf4jLogConsumer(LOGGER))
+                .withNetwork(network)
+                .withNetworkAliases(NETWORK_ALIAS_ORACLE)
+                .withDatabaseName(DATABASE_NAME_ORACLE)
+                .withUsername("USERSTORAGE")
+                .withPassword("USERSTORAGE")
+                .withEnv("APP_USER", "USERSTORAGE")
+                .withEnv("APP_USER_PASSWORD", "USERSTORAGE")
+                .withCopyFileToContainer(setup, "/container-entrypoint-startdb.d/setup.sql")
+        ;
+        try {
+            oracle.start();
+            return oracle;
+        } catch (Exception e) {
+            System.err.println(oracle.getLogs());
+            throw e;
+        }
+    }
+
     private KeycloakCustomContainer startKeycloak(PostgreSQLContainer postgres) {
         keycloak = new KeycloakCustomContainer()
                 .withLogConsumer(new Slf4jLogConsumer(LOGGER))
@@ -98,6 +129,7 @@ public class SystemUnderTest {
         envs.put("KC_DB_PASSWORD", postgres.getPassword());
         envs.put("KC_DB_URL", String.format("jdbc:postgresql://%s:5432/%s?loggerLevel=OFF", NETWORK_ALIAS_POSTGRES, DATABASE_NAME_POSTGRES));
         envs.put("USERSTORAGE_DB_URL", String.format("jdbc:postgresql://%s:5432/%s?loggerLevel=OFF", NETWORK_ALIAS_POSTGRES, DATABASE_NAME_POSTGRES));
+        envs.put("USERSTORAGE_ORACLE_URL", String.format("jdbc:oracle:thin:@%s:1521:%s", NETWORK_ALIAS_ORACLE, DATABASE_NAME_ORACLE));
         envs.put("KC_LOG_LEVEL", "info");
         return envs;
     }
