@@ -43,6 +43,7 @@ jobs:
         run: mvn -B install -Dbuild.number=${{github.run_number}} -Dbuild.revision=${GITHUB_SHA} --file pom.xml
 
       - name: Run flatten-maven-plugin for extension
+        # https://www.mojohaus.org/flatten-maven-plugin/
         run: mvn process-resources org.codehaus.mojo:flatten-maven-plugin:1.7.0:flatten -Dflatten.dependency.mode=all -Dflatten.mode=bom -Dee.maven.groupId=org.wildfly --file extensions/keycloak-database-userstorage/pom.xml
 
       - name: Deploy with Maven

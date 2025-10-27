@@ -1,9 +1,9 @@
 Keycloak Database Userstorage
 ===
 
-The `Keycloak Database Userstorage` extension makes it possible to use an existing database as the source of users. It provides an implementation of the [Keycloak User Storage SPI]. The code is mostly copied from [xsuchy09], which is a fork of a fork of [singular-keycloak-database-federation]. The following changes have been made:
+The `Keycloak Database Userstorage` allows to use an existing database as the source of users. It provides therefor an implementation of the [Keycloak User Storage SPI]. The code is mostly copied from [xsuchy09], which is a fork of a fork of [singular-keycloak-database-federation]. The following changes have been made:
 
-- not all supported JDBC drivers are required during runtime, only the ones which are actually configured
+- not all supported JDBC drivers are required during runtime, only the ones which are actually used
 - paging support for queries is fixed for Oracle
 
 The following databases are supported:
