@@ -56,6 +56,21 @@ The [Keycloak Test Application configured for the postgresql realm](https://www.
 Oracle
 ---
 
+To use this extension with an Oracle database, the Oracle JDBC driver must be also installed to the [providers folder](../../server/target/keycloak/providers) of the local Keycloak installation. In this project we use the `externals` subproject, which contains in its [pom.xml](../externals/pom.xml) the following dependency:
+
+```xml
+<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc10 -->
+<dependency>
+    <groupId>com.oracle.database.jdbc</groupId>
+    <artifactId>ojdbc10</artifactId>
+    <version>19.28.0.0</version>
+</dependency>
+```
+
+The dependency is then copied to the [providers folder](../../server/target/keycloak/providers) by the `maven-dependency-plugin` during the `generate-resources` phase of the Maven build.
+
+If this dependency should also be preinstalled in the Keycloak container image, then add this dependency also to the pom.xml of the `container` subproject and copy it also with the `maven-dependency-plugin`.
+
 The [setup.sql](../../container/src/test/resources/oracle/setup.sql) contains an example setup of the database schema to be used as the user storage for Oracle.
 
 For a script based configuration of Keycloak the [keycloak-config-cli] tool can be used. The [realm-oracle.json](../../config/src/main/resources/keycloak/setup/unused/realm-oracle.json) file contains such an example configuration for the `Keycloak Database Userstorage` extension.
