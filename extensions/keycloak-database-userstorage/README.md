@@ -87,4 +87,4 @@ The [Keycloak Test Application configured for the oracle realm](https://www.keyc
 [t7tran]: https://github.com/t7tran/singular-keycloak-database-federation
 [singular-keycloak-database-federation]: https://github.com/opensingular/singular-keycloak-database-federation
 [Keycloak User Storage SPI]: https://www.keycloak.org/docs/latest/server_development/index.html#_user-storage-spi
-[keycloak-config-cli]: 
+[keycloak-config-cli]: https://github.com/adorsys/keycloak-config-cli
