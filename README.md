@@ -4,8 +4,7 @@ This project provides the [Keycloak Database Userstorage](./extensions/keycloak-
 
 - [Build Pipeline](https://github.com/keycloak-competence-center/keycloak-database-userstorage/actions/workflows/build-pipeline.yml)
 - [Release Pipeline](https://github.com/keycloak-competence-center/keycloak-database-userstorage/actions/workflows/release-pipeline.yml)
-- Artifacts Release Repository
-- Artifacts Release Candidate Repository
+- Maven Central
 
 The following submodules have the artifact deployment to the maven repository skipped in their pom.xml:
 
@@ -16,7 +15,7 @@ The following submodules have the artifact deployment to the maven repository sk
 - server
 - themes
 
-The above submodules are only used during the development of the extension.
+The above submodules are only used during the development of the mentioned extension.
 
 ## Project Template
 

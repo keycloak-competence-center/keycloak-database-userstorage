@@ -19,6 +19,11 @@ Features not yet implemented:
 - remove a user
 - update a user
 
+Installation
+---
+
+The `keycloak-database-userstorage-{VERSION}-with-dependencies.jar` JAR file must be copied to the `providers` folder of the used Keycloak installation. For using database systems different to PostgreSQL the corresponding JDBC driver must also be copied to the `providers` folder, because the extension doesn't contain any JDBC drivers itself.
+
 Configuration
 ---
 
