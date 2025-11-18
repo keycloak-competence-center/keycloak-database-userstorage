@@ -9,6 +9,49 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>Database Userstorage extensions for keycloak</name>
+    <description>A Keycloak User Storage SPI implementation for connecting to an existing database as a read-only user source.</description>
+    <url>https://github.com/keycloak-competence-center/keycloak-database-userstorage</url>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Edwin Steiner</name>
+            <email>edwin.steiner@inventage.com</email>
+            <organization>Inventage AG</organization>
+            <organizationUrl>https://inventage.com/</organizationUrl>
+        </developer>
+        <developer>
+            <name>Christopher Signer</name>
+            <email>christopher.signer@inventage.com</email>
+            <organization>Inventage AG</organization>
+            <organizationUrl>https://inventage.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>IT DevOps - Labor Team W</name>
+            <url>https://github.com/laborteam</url>
+            <organization>labor team w ag</organization>
+            <organizationUrl>https://www.laborteam.ch/</organizationUrl>
+            <email>info@team-w.ch</email>
+            <roles><role>Sponsor</role></roles>
+        </contributor>
+    </contributors>
+
+    <scm>
+        <connection>scm:git:git://github.com/keycloak-competence-center/keycloak-database-userstorage.git</connection>
+        <developerConnection>scm:git:ssh://github.com/keycloak-competence-center/keycloak-database-userstorage.git</developerConnection>
+        <url>https://github.com/keycloak-competence-center/keycloak-database-userstorage/tree/main</url>
+    </scm>
+
     <modules>
         <module>server</module>
         <module>config</module>
@@ -309,6 +352,53 @@
                                 <goal>push</goal>
                             </goals>
                             <phase>deploy</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>1.7.3</version>
+
+                    <configuration>
+                        <flattenMode>bom</flattenMode>
+                        <flattenDependencyMode>all</flattenDependencyMode>
+                    </configuration>
+
+                    <executions>
+                        <execution>
+                            <id>flatten</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.3.1</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.12.0</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
                         </execution>
                     </executions>
                 </plugin>
