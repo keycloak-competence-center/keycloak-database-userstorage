@@ -318,6 +318,7 @@
                     <version>6.13.0</version>
                     <extensions>true</extensions>
                     <configuration>
+                        <helmVersion>4.0.0</helmVersion>
                         <chartVersion>${project.version}</chartVersion>
                         <chartDirectory>${project.basedir}/helm/target/chart</chartDirectory>
                         <useLocalHelmBinary>false</useLocalHelmBinary>
