@@ -2,6 +2,8 @@
 
 This project provides the [Keycloak Database Userstorage](./extensions/keycloak-database-userstorage) extension as its only deliverable.
 
+This repository is sponsored by [labor team w ag](https://www.laborteam.ch/).
+
 - [Build Pipeline](https://github.com/keycloak-competence-center/keycloak-database-userstorage/actions/workflows/build-pipeline.yml)
 - [Release Pipeline](https://github.com/keycloak-competence-center/keycloak-database-userstorage/actions/workflows/release-pipeline.yml)
 - Maven Central

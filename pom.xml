@@ -35,6 +35,17 @@
         </developer>
     </developers>
 
+    <contributors>
+        <contributor>
+            <name>IT DevOps - Labor Team W</name>
+            <url>https://github.com/laborteam</url>
+            <organization>labor team w ag</organization>
+            <organizationUrl>https://www.laborteam.ch/</organizationUrl>
+            <email>info@team-w.ch</email>
+            <roles><role>Sponsor</role></roles>
+        </contributor>
+    </contributors>
+
     <scm>
         <connection>scm:git:git://github.com/keycloak-competence-center/keycloak-database-userstorage.git</connection>
         <developerConnection>scm:git:ssh://github.com/keycloak-competence-center/keycloak-database-userstorage.git</developerConnection>
