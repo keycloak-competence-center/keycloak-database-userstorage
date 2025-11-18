@@ -175,7 +175,7 @@ jobs:
 #          MAVEN_GPG_KEY: ${{ secrets.PGP_MVN_PUBLISH_KEY_TEST }}
 
       - name: Deploy to Maven Central
-        run: mvn -B deploy -P release-to-central -Dbuild.number=${{github.run_number}} -Dbuild.revision=${{ needs.parse.outputs.full_sha }} --file extensions/keycloak-database-userstorage/pom.xml
+        run: mvn -B deploy -P release-to-central,!local-dev -Dbuild.number=${{github.run_number}} -Dbuild.revision=${{ needs.parse.outputs.full_sha }} --file extensions/keycloak-database-userstorage/pom.xml
         env:
           OSSRH_USERNAME: ${{ secrets.MVN_CENTRAL_PUBLISH_USERNAME }}
           OSSRH_TOKEN: ${{ secrets.MVN_CENTRAL_PUBLISH_PASSWORD }}
