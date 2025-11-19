@@ -11,6 +11,7 @@
     </parent>
     <artifactId>keycloak-database-userstorage</artifactId>
     <name>Database Userstorage extensions for keycloak</name>
+    <url>https://github.com/keycloak-competence-center/keycloak-database-userstorage</url>
 
     <properties>
         <file.to.deploy>${project.build.directory}/${project.build.finalName}-with-dependencies.${project.packaging}</file.to.deploy>
